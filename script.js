@@ -7,9 +7,33 @@ let startTime = null;
 let interval = null;
 
 // Fetch a random text usingAPI
+async function sendResultsToAPI(time, text) {
+  const data = {
+    timeTaken: time,
+    typedText: text,
+  };
+
+  try {
+    const response = await fetch("https://dummyjson.com/todos/random", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      alert("Results successfully sent to the server!");
+    } else {
+      alert("Failed to send results.");
+    }
+  } catch (error) {
+    console.error("Error sending results:", error);
+    alert("An error occurred while sending results.");
+  }
+}
 // async function fetchRandomText() {
 //   try {
-//     // const response = await fetch("https://dummyjson.com/todos/random");
 //     const response = await fetch("https://dummyjson.com/todos/1")
 //       .then((res) => res.json())
 //       .then(console.log);
